@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Payment</h2>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Order Summary</h4>
+      <p class="card-text">Order Total: ৳{{ order.total_price }}</p>
+
+      <form method="post">
+        {% csrf_token %}
+
+        <!-- Payment Method Selection -->
+        <div class="form-group">
+          <label for="payment-method">Payment Method</label>
+          <select
+            id="payment-method"
+            name="payment_method"
+            class="form-control"
+          >
+            <option value="credit_card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank_transfer">Bank Transfer</option>
+          </select>
+        </div>
+
+        <!-- Credit Card Payment Details -->
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input
+            type="text"
+            id="card-number"
+            name="card_number"
+            class="form-control"
+            placeholder="Card Number"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="card-expiry">Expiration Date</label>
+            <input
+              type="text"
+              id="card-expiry"
+              name="card_expiry"
+              class="form-control"
+              placeholder="MM/YY"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="card-cvc">CVC</label>
+            <input
+              type="text"
+              id="card-cvc"
+              name="card_cvc"
+              class="form-control"
+              placeholder="CVC"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Address and Payment Details for Other Methods -->
+        <div id="other-payment-details" class="form-group">
+          <label for="paypal-email">PayPal Email</label>
+          <input
+            type="email"
+            id="paypal-email"
+            name="paypal_email"
+            class="form-control"
+            placeholder="PayPal Email"
+          />
+
+          <label for="bank-account">Bank Account Details</label>
+          <textarea
+            id="bank-account"
+            name="bank_account"
+            class="form-control"
+            rows="3"
+            placeholder="Bank Account Details"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Complete Payment</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

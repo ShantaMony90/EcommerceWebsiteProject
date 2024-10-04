@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container my-5">
+  <h2 class="text-center mb-4">Your Cart</h2>
+  {% if cart_items %}
+  <div class="table-responsive d-flex justify-content-center">
+    <table class="table table-bordered text-center" style="max-width: 700px">
+      <thead class="thead-dark">
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td class="d-flex align-items-center justify-content-center">
+            <img
+              height="40px"
+              width="40px"
+              src="{{ item.product.image.url }}"
+              alt="Product image"
+              class="img-fluid rounded mr-2"
+            />
+            <span>{{ item.product.name }}</span>
+          </td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.product.regular_price }}</td>
+          <td>
+            <a
+              href="{% url 'increment_cart_item' item.id %}"
+              class="btn btn-success btn-sm"
+              >+</a
+            >
+            <a
+              href="{% url 'decrement_cart_item' item.id %}"
+              class="btn btn-danger btn-sm"
+              >-</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center my-4">
+    <p class="lead">Total: <strong>${{ total }}</strong></p>
+    <a
+      href="{% url 'checkout' %}"
+      class="btn btn-lg btn-primary px-5 py-2 shadow"
+    >
+      Proceed to Checkout
+    </a>
+  </div>
+  {% else %}
+  <p class="text-center">Your cart is empty.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0">Order Confirmation</h2>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Thank you for your order!</h4>
+            <p>Your order has been successfully placed.</p>
+          </div>
+          <h4>Order Details</h4>
+          <ul class="list-group mb-4">
+            <li class="list-group-item">
+              <strong>Order ID:</strong> {{ order.id }}
+            </li>
+            <li class="list-group-item">
+              <strong>Total Price:</strong> ${{ order.total_price }}
+            </li>
+          </ul>
+          <h4>Order Items:</h4>
+          <ul class="list-group">
+            {% for item in order.orderitem_set.all %}
+            <li class="list-group-item">
+              {{ item.product.name }} - Quantity: {{ item.quantity }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">No items in your order.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h2 class="text-center mb-4">Your Wishlist</h2>
+      {% if wishlist_items %}
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Add to Cart</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in wishlist_items %}
+          <tr>
+            <td class="d-flex align-items-center justify-content-center">
+              <img
+                height="40px"
+                width="40px"
+                src="{{ item.product.image.url }}"
+                alt="Product image"
+                class="img-fluid rounded mr-2"
+              />
+              <span>{{ item.product.name }}</span>
+            </td>
+            <td>${{ item.product.regular_price }}</td>
+            <td>
+              <a
+                href="{% url 'add_to_cart' item.product.id %}"
+                class="btn btn-sm btn-success"
+              >
+                Add to Cart
+              </a>
+
+              <a
+                href="{% url 'remove_from_wishlist' item.product.id %}"
+                class="btn btn-danger btn-sm"
+                >Remove</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="alert alert-info text-center">Your wishlist is empty.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

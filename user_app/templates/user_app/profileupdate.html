@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="conteiner">
+  <div class="col-11 col-md-5 mx-auto mt-5">
+    <div class="card shadow p-3">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ u_form.as_p }} {{ p_form.as_p }}
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
